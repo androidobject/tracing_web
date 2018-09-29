@@ -11,6 +11,6 @@
     <title>寻亲记</title>
 </head>
 <body>
-寻亲记
+<H1 align="center">寻亲记</H1>
 </body>
 </html>

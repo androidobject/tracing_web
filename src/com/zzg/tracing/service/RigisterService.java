@@ -6,6 +6,7 @@ import com.zzg.tracing.entity.UserEntity;
 import com.zzg.tracing.utils.ConnectionFactory;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * 注册账号
@@ -48,6 +49,13 @@ public class RigisterService {
 
         } catch (Exception e) {
             e.printStackTrace();
+            msg = "数据库连接失败";
+        }finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return msg;

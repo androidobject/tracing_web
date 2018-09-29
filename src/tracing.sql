@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 寻亲记
-Source Server Version : 50505
+Source Server         : tracing
+Source Server Version : 80012
 Source Host           : localhost:3306
 Source Database       : tracing
 
 Target Server Type    : MYSQL
-Target Server Version : 50505
+Target Server Version : 80012
 File Encoding         : 65001
 
-Date: 2018-09-27 17:22:06
+Date: 2018-09-29 14:55:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -23,7 +23,23 @@ CREATE TABLE `city` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `city_name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of city
+-- ----------------------------
+INSERT INTO `city` VALUES ('1', '全国');
+INSERT INTO `city` VALUES ('11', '北京');
+INSERT INTO `city` VALUES ('12', '上海');
+INSERT INTO `city` VALUES ('13', '天津');
+INSERT INTO `city` VALUES ('14', '山东');
+INSERT INTO `city` VALUES ('15', '河北');
+INSERT INTO `city` VALUES ('16', '河南');
+INSERT INTO `city` VALUES ('17', '黑龙江');
+INSERT INTO `city` VALUES ('18', '江苏');
+INSERT INTO `city` VALUES ('19', '浙江');
+INSERT INTO `city` VALUES ('20', '内蒙古');
+INSERT INTO `city` VALUES ('21', '新疆');
 
 -- ----------------------------
 -- Table structure for collect
@@ -37,6 +53,10 @@ CREATE TABLE `collect` (
   `collect_user_id` int(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of collect
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for commit
@@ -55,6 +75,10 @@ CREATE TABLE `commit` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of commit
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for essay
 -- ----------------------------
 DROP TABLE IF EXISTS `essay`;
@@ -66,6 +90,10 @@ CREATE TABLE `essay` (
   `essay_url` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of essay
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for feedback
@@ -81,6 +109,10 @@ CREATE TABLE `feedback` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of feedback
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for file
 -- ----------------------------
 DROP TABLE IF EXISTS `file`;
@@ -92,6 +124,10 @@ CREATE TABLE `file` (
   `file_url` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of file
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for lost_info
@@ -116,6 +152,10 @@ CREATE TABLE `lost_info` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of lost_info
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
@@ -129,5 +169,11 @@ CREATE TABLE `user` (
   `weixin` varchar(255) DEFAULT NULL,
   `create_time` varchar(255) NOT NULL,
   `rigister_by_phone` varchar(255) NOT NULL,
+  `last_login_time` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `user` VALUES ('3', '18766552101', '18766552101', '1123456', '', null, null, '2018-09-29 星期六 下午 14:52:53', 'android', null);

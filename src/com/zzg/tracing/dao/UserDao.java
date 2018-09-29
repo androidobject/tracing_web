@@ -21,12 +21,18 @@ public interface UserDao {
      * @param userEntity
      */
 
-    public void Login(Connection connection, UserEntity userEntity);
+    public boolean Login(Connection connection, UserEntity userEntity);
 
     /**
      * 检查是否存在
      */
     public boolean check(Connection connection, String phone);
+
+    /**
+     * 查询用户最后登录时间 返回用户信息
+     */
+
+    public UserEntity search(Connection connection, String phone);
 
 
 }
