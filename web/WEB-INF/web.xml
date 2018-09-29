@@ -5,7 +5,7 @@
          version="4.0">
     <!--<servlet>-->
         <!--<servlet-name>RigisterServlet</servlet-name>-->
-        <!--<servlet-class>com.zzg.servlet.RigisterServlet</servlet-class>-->
+        <!--<servlet-class>com.zzg.tracing.servlet.RigisterServlet</servlet-class>-->
     <!--</servlet>-->
     <!---->
     <!--<servlet-mapping>-->
@@ -13,6 +13,6 @@
         <!--<url-pattern>/rigister</url-pattern>-->
     <!--</servlet-mapping>-->
     <!---->
-    
-    
+
+
 </web-app>
