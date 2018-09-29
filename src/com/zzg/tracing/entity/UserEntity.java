@@ -27,10 +27,15 @@ public class UserEntity implements Serializable {
     private String create_time;
     private String rigister_by_phone;
 
+    private String last_login_time;
 
+    public String getLast_login_time() {
+        return last_login_time;
+    }
 
-
-
+    public void setLast_login_time(String last_login_time) {
+        this.last_login_time = last_login_time;
+    }
 
     public int getId() {
         return id;

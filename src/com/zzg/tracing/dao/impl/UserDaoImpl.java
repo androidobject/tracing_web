@@ -105,6 +105,8 @@ public class UserDaoImpl implements UserDao {
             entity.setUser_name(resultSet.getString("user_name"));
             entity.setPassword(resultSet.getString("password"));
             entity.setPhoto(resultSet.getString("photo"));
+            entity.setCreate_time(resultSet.getString("create_time"));
+            entity.setLast_login_time(resultSet.getString("last_login_time"));
             entity.setAddress(resultSet.getString("address"));
             entity.setWeixin(resultSet.getString("weixin"));
             entity.setRigister_by_phone(resultSet.getString("rigister_by_phone"));
