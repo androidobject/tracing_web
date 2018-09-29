@@ -6,9 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <title>寻亲记</title>
+    <link rel="111" href="/WEB-INF/img/favicon.jpg"/>
 </head>
 <body>
 <H1 align="center">寻亲记</H1>
