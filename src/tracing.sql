@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : tracing
-Source Server Version : 80012
+Source Server         : 127.0.0.1
+Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : tracing
 
 Target Server Type    : MYSQL
-Target Server Version : 80012
+Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2018-09-29 14:55:47
+Date: 2018-09-30 21:14:29
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -89,11 +89,13 @@ CREATE TABLE `essay` (
   `create_time` varchar(50) DEFAULT NULL,
   `essay_url` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of essay
 -- ----------------------------
+INSERT INTO `essay` VALUES ('1', '关爱被拐卖儿童的美文', '儿童被拐卖或走失的悲剧，每天都在上演。据中国最大的寻子网站“宝贝回家”统计，从2007年成立至2013年5月，该网站共收到全国寻子登记5000多条，其中90%是因为监管缺失导致孩子被拐走，一半被拐家庭属于农民工家庭。\r\n面临残酷的现实，丢失骨肉的父母们是多么痛心疾首，如果你也有孩子，如果你的孩子也成为失踪儿童，那你该怎么办呢？这并不是诅咒，所有家长都应该接着往下看。', '2018-09-29 星期六 下午 14:52:53', 'http://www.bdfqy.com/aiqingyulu/1687009.html');
+INSERT INTO `essay` VALUES ('2', '失踪儿童矿泉水引争议 企业能走多久', '近日，山东省青岛市不少细心市民发现，青岛市区部分便利店出现一款印有失踪儿童头像的矿泉水，瓶体上印着失踪儿童头像及其基本信息，厂家承诺对帮助孩子还家者重奖10万元。', '2018-09-29 星期六 下午 14:52:53', 'http://news.qinbei.com/20161116/1826286.shtml');
 
 -- ----------------------------
 -- Table structure for feedback
@@ -105,12 +107,22 @@ CREATE TABLE `feedback` (
   `content` varchar(255) NOT NULL,
   `contact` varchar(255) DEFAULT NULL,
   `feedback_by_phone` varchar(255) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`record_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of feedback
 -- ----------------------------
+INSERT INTO `feedback` VALUES ('1', '2018-09-30 星期日 下午 20:24:44', 'app不错，继续加油哦。。000000000000000000000000000000', null, 'android', '1');
+INSERT INTO `feedback` VALUES ('2', '2018-09-30 星期日 下午 20:25:16', 'app不错，继续加油哦。。000000000000000000000000000000', '18766552107', 'android', '1');
+INSERT INTO `feedback` VALUES ('3', '2018-09-30 星期日 下午 20:25:17', 'app不错，继续加油哦。。000000000000000000000000000000', '18766552107', 'android', '1');
+INSERT INTO `feedback` VALUES ('4', '2018-09-30 星期日 下午 20:25:18', 'app不错，继续加油哦。。000000000000000000000000000000', '18766552107', 'android', '1');
+INSERT INTO `feedback` VALUES ('5', '2018-09-30 星期日 下午 20:25:18', 'app不错，继续加油哦。。000000000000000000000000000000', '18766552107', 'android', '1');
+INSERT INTO `feedback` VALUES ('6', '2018-09-30 星期日 下午 20:25:18', 'app不错，继续加油哦。。000000000000000000000000000000', '18766552107', 'android', '1');
+INSERT INTO `feedback` VALUES ('7', '2018-09-30 星期日 下午 20:25:19', 'app不错，继续加油哦。。000000000000000000000000000000', '18766552107', 'android', '1');
+INSERT INTO `feedback` VALUES ('8', '2018-09-30 星期日 下午 20:25:19', 'app不错，继续加油哦。。000000000000000000000000000000', '18766552107', 'android', '1');
+INSERT INTO `feedback` VALUES ('9', '2018-09-30 星期日 下午 20:25:19', 'app不错，继续加油哦。。000000000000000000000000000000', '18766552107', 'android', '1');
 
 -- ----------------------------
 -- Table structure for file
@@ -176,4 +188,4 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('3', '18766552101', '18766552101', '1123456', '', null, null, '2018-09-29 星期六 下午 14:52:53', 'android', null);
+INSERT INTO `user` VALUES ('3', '18766552101', '18766552101', '1123456', '', null, null, '2018-09-29 星期六 下午 14:52:53', 'android', '2018-09-30 星期日 下午 20:13:25');
