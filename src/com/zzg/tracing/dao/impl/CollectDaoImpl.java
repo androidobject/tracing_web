@@ -98,5 +98,54 @@ public class CollectDaoImpl implements CollectDao {
         return isCollect;
     }
 
+    /**
+     * 取消收藏
+     *
+     * @param connection
+     * @param lost_info_id
+     * @param collect_user_id
+     * @return
+     */
+    @Override
+    public boolean unCollect(Connection connection, int lost_info_id, int collect_user_id) {
+
+        boolean isCollect = chekCollect(connection, lost_info_id, collect_user_id);
+
+        if (isCollect) {
+
+            try {
+                connection.setAutoCommit(false);
+                String sql = "delete  from collect where lost_info_id=? and collect_user_id=?";
+                PreparedStatement ps = connection.prepareStatement(sql);
+                ps.setInt(1, lost_info_id);
+                ps.setInt(2, collect_user_id);
+                int i = ps.executeUpdate();
+
+                String selectNum = "update  lost_info  set collect_time=collect_time-1  where id=" + lost_info_id;
+                PreparedStatement psCollectNum = connection.prepareStatement(selectNum);
+                int i1 = psCollectNum.executeUpdate();
+
+                if (i == 1 && i1 == 1) {
+                    connection.commit();
+                    return true;
+                } else {
+                    throw new RuntimeException("取消收藏失败,信息不存在！");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                try {
+                    connection.rollback();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+
+        } else {
+            throw new RuntimeException("未找到该收藏记录！");
+        }
+
+        return false;
+    }
+
 
 }

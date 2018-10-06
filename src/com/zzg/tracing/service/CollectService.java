@@ -31,4 +31,22 @@ public class CollectService {
     }
 
 
+    /**
+     * 取消收藏丢失人信息
+     *
+     * @param
+     * @return
+     */
+    public boolean unCollect(int lost_info_id, int collect_user_id) {
+
+        Connection connection = null;
+        connection = ConnectionFactory.getInstance().makeConnection();
+
+        boolean collect = dao.unCollect(connection, lost_info_id, collect_user_id);
+
+        return collect;
+
+    }
+
+
 }
