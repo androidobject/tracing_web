@@ -77,6 +77,26 @@ public class UserDaoImpl implements UserDao {
         return false;
     }
 
+    @Override
+    public boolean checkUID(Connection connection, String id) {
+
+        String sql = "SELECT * FROM user WHERE id=?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, id);
+            ResultSet resultSet = ps.executeQuery();
+            if (resultSet.next()) {
+                return true;
+            }
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+
+    }
+
     /**
      * 更新最后登录时间
      */

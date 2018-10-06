@@ -18,7 +18,8 @@ public class LostInfoEntity implements Serializable {
         create_time = bf.format(date);
 
     }
-
+    //主键 id
+    private int id;
 
     //丢失人姓名
     private String lost_name;
@@ -48,7 +49,26 @@ public class LostInfoEntity implements Serializable {
     private int look_time;
     //发布人id
     private String send_id;
+    //收藏次数
+    private int collect_time;
+    //评论数
+    private int commit_time;
 
+    public int getCollect_time() {
+        return collect_time;
+    }
+
+    public void setCollect_time(int collect_time) {
+        this.collect_time = collect_time;
+    }
+
+    public int getCommit_time() {
+        return commit_time;
+    }
+
+    public void setCommit_time(int commit_time) {
+        this.commit_time = commit_time;
+    }
 
     public String getSend_id() {
         return send_id;
@@ -159,6 +179,16 @@ public class LostInfoEntity implements Serializable {
     }
 
     public void setLook_time(int look_time) {
+
+
         this.look_time = look_time;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

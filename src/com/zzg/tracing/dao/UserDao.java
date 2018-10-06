@@ -29,6 +29,11 @@ public interface UserDao {
     public boolean check(Connection connection, String phone);
 
     /**
+     * 检查用户id是否存在
+     */
+    public boolean checkUID(Connection connection, String id);
+
+    /**
      * 查询用户最后登录时间 返回用户信息
      */
 
