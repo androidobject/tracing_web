@@ -131,8 +131,6 @@ public class LostInfoDaoImpl implements LostInfoDao {
             }
 
             pageEnty.setMlist(mList);
-            System.out.println("返回的首页列表条数" + mList.size());
-
             return pageEnty;
 
         } catch (SQLException e) {
