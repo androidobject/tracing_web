@@ -120,6 +120,31 @@ public class LostInfoDaoImpl implements LostInfoDao {
         return pageEnty;
     }
 
+    /**
+     * 通过send_Id 查询所有发布的信息
+     *
+     * @param connection
+     * @param user_id
+     * @return
+     */
+
+    @Override
+    public List<LostInfoEntity> selectLostListByUid(Connection connection, int user_id) {
+        String sql = "SELECT * from lost_info where send_id=?";
+        List<LostInfoEntity> tableList = null;
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, user_id);
+
+            ResultSet resultSet = ps.executeQuery();
+
+            tableList = SqlTableUtils.getTableList(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return tableList;
+    }
+
 
     /**
      * 查询总条数

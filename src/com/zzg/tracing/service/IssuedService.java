@@ -45,4 +45,20 @@ public class IssuedService {
     }
 
 
+    /**
+     * 查询当前用户发布的信息
+     */
+
+    public List<LostInfoEntity> selectInfoByUid(int uid) {
+
+
+        Connection connection = ConnectionFactory.getInstance().makeConnection();
+
+        List<LostInfoEntity> lostInfoEntities = dao.selectLostListByUid(connection, uid);
+
+        return lostInfoEntities;
+
+    }
+
+
 }

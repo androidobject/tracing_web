@@ -1,7 +1,7 @@
 package com.zzg.tracing.servlet;
 
 import com.zzg.tracing.entity.LostInfoEntity;
-import com.zzg.tracing.service.CollectService;
+import com.zzg.tracing.service.IssuedService;
 import com.zzg.tracing.utils.ResPonseUtils;
 import com.zzg.tracing.utils.TextUtils;
 
@@ -15,18 +15,16 @@ import java.io.PrintWriter;
 import java.util.List;
 
 /**
- * 我的收藏列表
+ * 我的发布信息查询
  */
-
-@WebServlet(name = "CollectListServlet", urlPatterns = {"/collect_list"})
-public class CollectListServlet extends HttpServlet {
+@WebServlet(name = "MyIssuedServlet", urlPatterns = {"/myissued"})
+public class MyIssuedServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         String user_id = request.getParameter("user_id");
 
         String result = "";
@@ -34,24 +32,22 @@ public class CollectListServlet extends HttpServlet {
         if (TextUtils.isEmpty(user_id)) {
             result = ResPonseUtils.responseJsonE("参数错误！");
         } else {
-
-            CollectService service = new CollectService();
-
+            IssuedService service = new IssuedService();
             int uid = Integer.parseInt(user_id);
-
-            List<LostInfoEntity> collectList = service.getCollectList(uid);
-
-
-            if (collectList != null) {
-                result = ResPonseUtils.responseJsonS(collectList);
-            } else {
-                result = ResPonseUtils.responseJsonS("暂无收藏内容！");
+            List<LostInfoEntity> lostInfoEntities = service.selectInfoByUid(uid);
+            if(lostInfoEntities!=null){
+                result=ResPonseUtils.responseJsonS(lostInfoEntities);
+            }else{
+                result=ResPonseUtils.responseJsonS("暂无发布的数据");
             }
-        }
 
+
+        }
         PrintWriter writer = response.getWriter();
         writer.print(result);
         writer.close();
+
+
     }
 
 

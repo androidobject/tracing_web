@@ -29,4 +29,12 @@ public interface LostInfoDao {
 
     public PageEntity selectLostList(Connection connection, String area, String page);
 
+
+    /**
+     * 通过userid 获取当前发布人的发布信息
+     */
+
+    public List<LostInfoEntity> selectLostListByUid(Connection connection, int user_id);
+
+
 }
