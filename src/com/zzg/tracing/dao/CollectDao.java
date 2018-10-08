@@ -1,8 +1,10 @@
 package com.zzg.tracing.dao;
 
 import com.zzg.tracing.entity.CollectEntity;
+import com.zzg.tracing.entity.LostInfoEntity;
 
 import java.sql.Connection;
+import java.util.List;
 
 public interface CollectDao {
 
@@ -29,5 +31,11 @@ public interface CollectDao {
 
     public boolean unCollect(Connection connection, int lost_info_id, int collect_user_id);
 
+
+    /**
+     * 查询收藏人列表
+     */
+
+    public List<LostInfoEntity> getCollectList(Connection connection, int user_id);
 
 }

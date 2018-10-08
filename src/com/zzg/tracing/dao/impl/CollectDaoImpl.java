@@ -2,11 +2,15 @@ package com.zzg.tracing.dao.impl;
 
 import com.zzg.tracing.dao.CollectDao;
 import com.zzg.tracing.entity.CollectEntity;
+import com.zzg.tracing.entity.LostInfoEntity;
+import com.zzg.tracing.utils.SqlTableUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CollectDaoImpl implements CollectDao {
 
@@ -145,6 +149,34 @@ public class CollectDaoImpl implements CollectDao {
         }
 
         return false;
+    }
+
+
+    /**
+     * 查找收藏列表
+     *
+     * @param connection
+     * @param user_id
+     * @return
+     */
+
+    @Override
+    public List<LostInfoEntity> getCollectList(Connection connection, int user_id) {
+
+        String sql = "SELECT * FROM lost_info WHERE id=ANY(SELECT lost_info_id FROM collect WHERE collect_user_id=?)";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, user_id);
+            ResultSet rs = ps.executeQuery();
+            List<LostInfoEntity> tableList = SqlTableUtils.getTableList(rs);
+            return tableList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return null;
     }
 
 
