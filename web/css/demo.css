@@ -1,0 +1,79 @@
+h1, a {
+    color: red;
+    font-size: 18px
+}
+
+h4 {
+    color: white;
+    font-size: 14px
+}
+
+body {
+
+    color: wheat;
+
+}
+
+/*派生选择器*/
+li strong {
+
+    color: black;
+}
+
+/*id选择器  #跟id */
+
+#pid {
+    color: red;
+}
+
+/*派生和id 混合使用 只对某一项更改*/
+#divid div {
+    color: blue;
+}
+
+/*类选择器使用*/
+.pclass {
+    color: red;
+}
+
+/*属性选择器*/
+/*<style type="text/css">*/
+/*[title] {*/
+/*color: blue;*/
+/*}*/
+
+/*</style>*/
+
+body {
+
+    background-image: url("../img/login-background.jpg");
+    background-repeat: no-repeat;
+    /*左边 上边显示*  或者百分比 、px 都可以/
+    /*background-position: left top;*/
+    /*fixed  随着内容不滚动*/
+    background-attachment: fixed;
+    background-size: 100px 100px;
+
+}
+
+p {
+    color: red;
+    /*文本对齐方式*/
+    text-align: center;
+    /*首行缩进  2个字符*/
+    text-indent: 2em;
+    /*内边距*/
+    padding: 2em;
+    /* capitalize 所有单词首字母大写、*/
+    text-transform: capitalize;
+    /*阴影*/
+    text-shadow: 5px  5px 1px red;
+    /*自动换行*/
+    text-wrap: normal;
+
+    /*字体设置*/
+    font-size: 20px;
+    font-family: Arial;
+
+}
+
