@@ -19,7 +19,7 @@ public class FileUtils {
     private static final int MAX_REQUEST_SIZE = 1024 * 1024 * 50; // 50MB
 
 
-    public static List<FileEntity> saveFile(HttpServletRequest request) throws Exception {
+    public static List<FileEntity> saveFile(HttpServletRequest request, String user_id, String type, String lost_info_id) throws Exception {
         List<FileEntity> mlist = new ArrayList<>();
 
         String path = "";
@@ -70,10 +70,10 @@ public class FileUtils {
                     System.out.println(filePath);
                     // 保存文件到硬盘
                     item.write(storeFile);
-                    entity.setFile_type("1");
+                    entity.setFile_type(type);
                     entity.setFile_url(Constans.realPath("file/" + fileName));
-                    entity.setLost_info_id(1);
-                    entity.setUser_id(3);
+                    entity.setLost_info_id(Integer.parseInt(lost_info_id));
+                    entity.setUser_id(Integer.parseInt(user_id));
                     mlist.add(entity);
                     System.out.println("文件上传成功！");
                 }

@@ -34,11 +34,11 @@ public class UploadFileServlet extends HttpServlet {
 
         String user_id = request.getParameter("user_id");
         String type = request.getParameter("type");
+        String lost_info_id = request.getParameter("lost_info_id");
 
-
-//        if (!TextUtils.isEmpty(user_id) && !TextUtils.isEmpty(type)) {
+        if (!TextUtils.isEmpty(user_id) && !TextUtils.isEmpty(type)&&!TextUtils.isEmpty(lost_info_id)) {
         try {
-            mlist = FileUtils.saveFile(request);
+            mlist = FileUtils.saveFile(request,user_id,type,lost_info_id);
             if (mlist.size() > 0) {
                 FileService service = new FileService();
 
@@ -62,9 +62,9 @@ public class UploadFileServlet extends HttpServlet {
             result = ResPonseUtils.responseJsonE(e.getMessage());
         }
 
-//        } else {
-//            result = ResPonseUtils.responseJsonE("参数错误！");
-//        }
+        } else {
+            result = ResPonseUtils.responseJsonE("参数错误！");
+        }
         PrintWriter writer = response.getWriter();
         writer.print(result);
         writer.close();
