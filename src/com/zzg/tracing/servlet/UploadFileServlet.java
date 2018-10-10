@@ -1,8 +1,11 @@
 package com.zzg.tracing.servlet;
 
 import com.zzg.tracing.constant.Constans;
+import com.zzg.tracing.entity.FileEntity;
+import com.zzg.tracing.service.FileService;
 import com.zzg.tracing.utils.FileUtils;
 import com.zzg.tracing.utils.ResPonseUtils;
+import com.zzg.tracing.utils.TextUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,18 +27,44 @@ public class UploadFileServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //TODO ----
+
         String result = "";
 
+        List<FileEntity> mlist = null;
 
-        List<String> mlist = FileUtils.saveFile(request);
+        String user_id = request.getParameter("user_id");
+        String type = request.getParameter("type");
 
-        if (mlist != null) {
-            result = ResPonseUtils.responseJsonS(mlist);
-        } else {
-            result = ResPonseUtils.responseJsonE("文件上传失败！");
+
+//        if (!TextUtils.isEmpty(user_id) && !TextUtils.isEmpty(type)) {
+        try {
+            mlist = FileUtils.saveFile(request);
+            if (mlist.size() > 0) {
+                FileService service = new FileService();
+
+                boolean b = service.saveFileToSql(mlist);
+                if (b) {
+
+                    if (mlist != null) {
+                        result = ResPonseUtils.responseJsonS(mlist);
+                    } else {
+                        result = ResPonseUtils.responseJsonE("文件上传失败！");
+                    }
+
+                } else {
+                    result = ResPonseUtils.responseJsonE("服务器异常！");
+                }
+            } else {
+                result = ResPonseUtils.responseJsonE("未发现文件！");
+            }
+
+        } catch (Exception e) {
+            result = ResPonseUtils.responseJsonE(e.getMessage());
         }
 
+//        } else {
+//            result = ResPonseUtils.responseJsonE("参数错误！");
+//        }
         PrintWriter writer = response.getWriter();
         writer.print(result);
         writer.close();

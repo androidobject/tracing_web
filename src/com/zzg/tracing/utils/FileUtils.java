@@ -1,6 +1,7 @@
 package com.zzg.tracing.utils;
 
 import com.zzg.tracing.constant.Constans;
+import com.zzg.tracing.entity.FileEntity;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -18,8 +19,8 @@ public class FileUtils {
     private static final int MAX_REQUEST_SIZE = 1024 * 1024 * 50; // 50MB
 
 
-    public static List<String> saveFile(HttpServletRequest request) {
-        List<String> mlist = new ArrayList<>();
+    public static List<FileEntity> saveFile(HttpServletRequest request) throws Exception {
+        List<FileEntity> mlist = new ArrayList<>();
 
         String path = "";
         if (Constans.ISPRODUCTION) {
@@ -50,28 +51,31 @@ public class FileUtils {
         if (!uploadDir.exists()) {
             uploadDir.mkdir();
         }
-        try {
-            // 解析请求的内容提取文件数据
-            List<FileItem> formItems = upload.parseRequest(request);
-            if (formItems != null && formItems.size() > 0) {
-                // 迭代表单数据
-                for (FileItem item : formItems) {
-                    // 处理不在表单中的字段
-                    if (!item.isFormField()) {
-                        String fileName = new File(item.getName()).getName();
-                        String filePath = path + File.separator + fileName;
-                        File storeFile = new File(filePath);
-                        // 在控制台输出文件的上传路径
-                        System.out.println(filePath);
-                        // 保存文件到硬盘
-                        mlist.add(filePath);
-                        item.write(storeFile);
-                        System.out.println("文件上传成功！");
-                    }
+
+        // 解析请求的内容提取文件数据
+        List<FileItem> formItems = upload.parseRequest(request);
+        if (formItems != null && formItems.size() > 0) {
+            // 迭代表单数据
+            for (FileItem item : formItems) {
+                // 处理不在表单中的字段
+                if (!item.isFormField()) {
+                    FileEntity entity = new FileEntity();
+                    long timeMillis = System.currentTimeMillis();
+                    String fileName = timeMillis + new File(item.getName()).getName();
+                    String filePath = path + File.separator + fileName;
+                    File storeFile = new File(filePath);
+                    // 在控制台输出文件的上传路径
+                    System.out.println(filePath);
+                    // 保存文件到硬盘
+                    item.write(storeFile);
+                    entity.setFile_type("1");
+                    entity.setFile_url(Constans.realPath("file/" + fileName));
+                    entity.setLost_info_id(1);
+                    entity.setUser_id(3);
+                    mlist.add(entity);
+                    System.out.println("文件上传成功！");
                 }
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
         }
 
         return mlist;

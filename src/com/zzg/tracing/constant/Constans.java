@@ -9,5 +9,25 @@ public class Constans {
      */
     public static final boolean ISPRODUCTION = false;
 
+    /**
+     * 生产
+     */
+    public static final String HOST_P = "http://47.94.208.5/";
+    /**
+     * 测试
+     */
+    public static final String HOST_T = "http://localhost:8080/";
+
+
+    public static String realPath(String path) {
+
+        if (ISPRODUCTION) {
+            return HOST_P + path;
+        } else {
+            return HOST_T + path;
+        }
+
+    }
+
 
 }
