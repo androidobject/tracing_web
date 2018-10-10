@@ -36,6 +36,8 @@ public class FileUtils {
         factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
 
         ServletFileUpload upload = new ServletFileUpload(factory);
+        //处理乱码
+        upload.setHeaderEncoding("UTF-8");
 
         // 设置最大文件上传值
         upload.setFileSizeMax(MAX_FILE_SIZE);
