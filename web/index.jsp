@@ -10,12 +10,10 @@
 <html>
 <head>
     <title>寻亲记</title>
-    <link rel="111" href="/WEB-INF/img/favicon.jpg"/>
+    <link rel="icon" href="img/favicon.png" mce_href="img/favicon.png" type="image/x-icon">
 </head>
 <body>
 <H1 align="center">寻亲记</H1>
-
-
 
 
 </body>
