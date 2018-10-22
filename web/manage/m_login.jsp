@@ -15,6 +15,7 @@
     <link href="/css/style.css" type="text/css" rel="stylesheet">
     <link href="/css/login.css" type="text/css" rel="stylesheet">
 
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript">
 
         function check() {
@@ -37,21 +38,20 @@
                 type: "POST",
                 url: "/mLogin.dao",
                 data: data,
-                dataType: 'json',
+                async: true,
+                cache: false,
+                dataType: 'text',
                 success: function (msg) {
-                    alert(msg);
                     if ("登录成功" == msg) {
-                        // window.location.href = "{:U('manage/personal')}";
+                        window.location.href = "/manage/m_index.jsp";
                     } else {
-                        alert("登录失败，请重试!");
+                        alert(msg);
                     }
                 }
 
             });
 
-
         }
-
 
     </script>
 

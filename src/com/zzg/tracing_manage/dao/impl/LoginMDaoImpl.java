@@ -1,6 +1,7 @@
 package com.zzg.tracing_manage.dao.impl;
 
 import com.zzg.tracing_manage.dao.LoginMDao;
+import com.zzg.tracing_manage.utils.TimeUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,6 +25,13 @@ public class LoginMDaoImpl implements LoginMDao {
 
             if (resultSet.next()) {
                 result = "登录成功";
+                //更新登录时间
+                String sql_time = "update m_user set last_login_time=? where username=?";
+                PreparedStatement pst = connection.prepareStatement(sql_time);
+                pst.setString(1, TimeUtils.getCurrent());
+                pst.setString(2, username);
+                pst.executeUpdate();
+
             } else {
                 result = "用户名或密码错误！";
             }
