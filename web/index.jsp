@@ -11,9 +11,15 @@
 <head>
     <title>寻亲记</title>
     <link rel="icon" href="img/favicon.png" mce_href="img/favicon.png" type="image/x-icon">
+
 </head>
 <body>
 <H1 align="center">寻亲记</H1>
+
+<form action="/w_lostinfo">
+
+
+</form>
 
 
 </body>
