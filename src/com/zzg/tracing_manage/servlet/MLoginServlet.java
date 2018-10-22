@@ -21,9 +21,6 @@ public class MLoginServlet extends HttpServlet {
 
         String uname = request.getParameter("uname");
         String pword = request.getParameter("pword");
-        System.out.println("uname===" + uname + "=======pword=========" + pword);
-
-
 
         LoginMService service = new LoginMService();
         String result = service.loginM(uname, pword);
