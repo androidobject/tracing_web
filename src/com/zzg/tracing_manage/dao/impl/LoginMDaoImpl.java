@@ -14,7 +14,7 @@ public class LoginMDaoImpl implements LoginMDao {
     @Override
     public String loginM(Connection connection, String username, String password) {
         String result = "";
-        String sql = "SELECT * from m_user where username=? and password=?";
+        String sql = "SELECT * from admin_user where username=? and password=?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
 
@@ -26,12 +26,11 @@ public class LoginMDaoImpl implements LoginMDao {
             if (resultSet.next()) {
                 result = "登录成功";
                 //更新登录时间
-                String sql_time = "update m_user set last_login_time=? where username=?";
+                String sql_time = "update admin_user set last_login=? where username=?";
                 PreparedStatement pst = connection.prepareStatement(sql_time);
-                pst.setString(1, TimeUtils.getCurrent());
+                pst.setString(1, TimeUtils.getStringTime());
                 pst.setString(2, username);
                 pst.executeUpdate();
-
             } else {
                 result = "用户名或密码错误！";
             }
