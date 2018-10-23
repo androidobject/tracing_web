@@ -44,11 +44,50 @@
                     var totalPagen = jsData.data.totalPage;
                     console.log(totalPagen);
                     var html = '';
+                    html += '<table border="1" width="100%" height="50%" margin="0">';
                     for (var i in mlist) {
-                        html += '<li>' + '<p class="m0">' + 'NO.' + (0+i) + '</p>' +
-                            '丢失人：' + mlist[i].lost_name + '&nbsp;' + mlist[i].last_see_time + '<br>' +
-                            '联系地址：' + mlist[i].contact_address + '</li>';
+                        if (i == 0) {
+                            //第一个单行
+                            html += '  <tr>' + '<td colspan=3>' +
+                                '丢失人：' + mlist[i].lost_name + '&nbsp; 最后一次见面时间：' + mlist[i].last_see_time + '<br>' +
+                                '性别：' + mlist[i].lost_sex + '<br>' +
+                                '年龄：' + mlist[i].lost_age + '<br>' +
+                                '发布时间：' + mlist[i].create_time + '<br>' +
+                                '联系地址：' + mlist[i].contact_address + '<br>' +
+                                '联系人：' + mlist[i].contact_name + '<br>' +
+                                '丢失地区：' + mlist[i].lost_area + '<br>' +
+                                '查看次数：' + mlist[i].look_time + '  ' +
+                                '评论次数：' + mlist[i].commit_time + '   ' +
+                                '收藏次数：' + mlist[i].collect_time + '   ' + '<br>' +
+                                '</li></td></tr>'
+                        } else {
+                            if (i % 3 == 1) {
+                                console.log(i);
+                                html += '<tr>'
+                            }
+                            html += '<td>' +
+                                '丢失人：' + mlist[i].lost_name + '&nbsp;最后一次见面时间：' + mlist[i].last_see_time + '<br>' +
+                                '性别：' + mlist[i].lost_sex + '<br>' +
+                                '年龄：' + mlist[i].lost_age + '<br>' +
+                                '发布时间：' + mlist[i].create_time + '<br>' +
+                                '联系地址：' + mlist[i].contact_address + '<br>' +
+                                '联系人：' + mlist[i].contact_name + '<br>' +
+                                '丢失地区：' + mlist[i].lost_area + '<br>' +
+                                '查看次数：' + mlist[i].look_time + '  ' +
+                                '评论次数：' + mlist[i].commit_time + '   ' +
+                                '收藏次数：' + mlist[i].collect_time + '   ' + '<br>' +
+                                '</li></td>'
+
+                            if (i % 3 == 0) {
+                                html += '</tr>'
+                            }
+
+
+                        }
+
                     }
+                    html += '</table>';
+
                     document.getElementById("composition").innerHTML = html;
                 } else {
                     alert("服务器异常！")
@@ -59,13 +98,19 @@
         }
     </script>
 
-
 </head>
-<body onload="getCompostion()" bgcolor="#deb887">
+<body onload="getCompostion()" bgcolor="#a9a9a9">
 <H1 align="center">寻亲记官网</H1>
+<div id="composition"></div>
 
-
-<div id="composition"> 123</div>
 
 </body>
+
+<footer class="myfooter">
+    <div class="copyright" position:relative>
+        <p ><img src="/img/favicon.png"/>Copyright 2018&copy; 北京寻亲记个人开发小组</p>
+    </div>
+</footer>
+
+
 </html>
