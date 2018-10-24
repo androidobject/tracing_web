@@ -34,11 +34,10 @@ public class UploadFileServlet extends HttpServlet {
 
         String user_id = request.getParameter("user_id");
         String type = request.getParameter("type");
-        String lost_info_id = request.getParameter("lost_info_id");
 
-        if (!TextUtils.isEmpty(user_id) && !TextUtils.isEmpty(type)&&!TextUtils.isEmpty(lost_info_id)) {
+        if (!TextUtils.isEmpty(user_id) && !TextUtils.isEmpty(type)) {
         try {
-            mlist = FileUtils.saveFile(request,user_id,type,lost_info_id);
+            mlist = FileUtils.saveFile(request,user_id,type);
             if (mlist.size() > 0) {
                 FileService service = new FileService();
 
