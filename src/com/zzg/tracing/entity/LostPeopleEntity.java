@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 
 public class LostPeopleEntity implements Serializable {
+
     private int id;
 
     //姓名

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.zzg.tracing.dao.LostPeopleDao;
 import com.zzg.tracing.entity.LostPeopleEntity;
+import com.zzg.tracing.utils.TimeUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,13 +30,12 @@ public class LostPeopleDaoImpl implements LostPeopleDao {
             ps.setString(5, entity.getLost_high());
             ps.setString(6, entity.getPic_file());
             ps.setString(7, entity.getLost_weight());
-            ps.setString(8, entity.getCreate_time());
+            ps.setString(8, TimeUtils.getCurrentTime());
             ps.setInt(9, entity.getCreate_by_user());
             ps.setString(10, entity.getNickname());
             ps.setString(11, entity.getLost_age());
             ps.setString(12, entity.getLost_sex());
             ps.setString(13, entity.getPhoto());
-
 
             int i = ps.executeUpdate();
             if (i == 1) {

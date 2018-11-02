@@ -19,15 +19,11 @@ public class FileUtils {
     private static final int MAX_REQUEST_SIZE = 1024 * 1024 * 50; // 50MB
 
 
-    public static List<FileEntity> saveFile(HttpServletRequest request, String user_id, String type) throws Exception {
+    public static List<FileEntity> saveFile(HttpServletRequest request, String user_id, String type, String lost_people_id) throws Exception {
         List<FileEntity> mlist = new ArrayList<>();
 
-        String path = "";
-        if (Constans.ISPRODUCTION) {
-            path = "/root/file_upload";
-        } else {
-            path = "D:\\file_upload";
-        }
+        String path = Constans.getPath();
+
         // 配置上传参数
         DiskFileItemFactory factory = new DiskFileItemFactory();
         // 设置内存临界值 - 超过后将产生临时文件并存储于临时目录中
@@ -72,7 +68,7 @@ public class FileUtils {
                     item.write(storeFile);
                     entity.setFile_type(type);
                     entity.setFile_url(Constans.realPath("file/" + fileName));
-//                    entity.setLost_info_id(Integer.parseInt(lost_info_id));
+                    entity.setLost_people_id(Integer.parseInt(lost_people_id));
                     entity.setUser_id(Integer.parseInt(user_id));
                     mlist.add(entity);
                     System.out.println("文件上传成功！");

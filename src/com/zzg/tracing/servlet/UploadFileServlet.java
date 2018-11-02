@@ -34,32 +34,31 @@ public class UploadFileServlet extends HttpServlet {
 
         String user_id = request.getParameter("user_id");
         String type = request.getParameter("type");
+        String lost_people_id = request.getParameter("lost_id");
 
-        if (!TextUtils.isEmpty(user_id) && !TextUtils.isEmpty(type)) {
-        try {
-            mlist = FileUtils.saveFile(request,user_id,type);
-            if (mlist.size() > 0) {
-                FileService service = new FileService();
 
-                boolean b = service.saveFileToSql(mlist);
-                if (b) {
-
-                    if (mlist != null) {
-                        result = ResPonseUtils.responseJsonS(mlist);
+        if (!TextUtils.isEmpty(user_id) && !TextUtils.isEmpty(type) && !TextUtils.isEmpty(lost_people_id)) {
+            try {
+                mlist = FileUtils.saveFile(request, user_id, type, lost_people_id);
+                if (mlist.size() > 0) {
+                    FileService service = new FileService();
+                    boolean b = service.saveFileToSql(mlist);
+                    if (b) {
+                        if (mlist != null) {
+                            result = ResPonseUtils.responseJsonS(mlist);
+                        } else {
+                            result = ResPonseUtils.responseJsonE("文件上传失败！");
+                        }
                     } else {
-                        result = ResPonseUtils.responseJsonE("文件上传失败！");
+                        result = ResPonseUtils.responseJsonE("服务器异常！");
                     }
-
                 } else {
-                    result = ResPonseUtils.responseJsonE("服务器异常！");
+                    result = ResPonseUtils.responseJsonE("未发现文件！");
                 }
-            } else {
-                result = ResPonseUtils.responseJsonE("未发现文件！");
-            }
 
-        } catch (Exception e) {
-            result = ResPonseUtils.responseJsonE(e.getMessage());
-        }
+            } catch (Exception e) {
+                result = ResPonseUtils.responseJsonE(e.getMessage());
+            }
 
         } else {
             result = ResPonseUtils.responseJsonE("参数错误！");

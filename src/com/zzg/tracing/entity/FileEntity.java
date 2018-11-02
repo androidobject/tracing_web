@@ -9,18 +9,12 @@ import java.util.Date;
  * 文件实体
  */
 public class FileEntity implements Serializable {
-    public FileEntity() {
-        DateFormat bf = new SimpleDateFormat("yyyy-MM-dd E a HH:mm:ss");
-        Date date = new Date();
-        create_time = bf.format(date);
-    }
-
     //文件类型 、1 用户信息发布
     private String file_type;
     //用户id
     private int user_id;
     //丢失信息id
-    private int lost_info_id;
+    private int lost_people_id;
     //非绝对路径
     private String file_url;
     //创建时间
@@ -42,12 +36,13 @@ public class FileEntity implements Serializable {
         this.user_id = user_id;
     }
 
-    public int getLost_info_id() {
-        return lost_info_id;
+
+    public int getLost_people_id() {
+        return this.lost_people_id;
     }
 
-    public void setLost_info_id(int lost_info_id) {
-        this.lost_info_id = lost_info_id;
+    public void setLost_people_id(int lost_people_id) {
+        this.lost_people_id = lost_people_id;
     }
 
     public String getFile_url() {

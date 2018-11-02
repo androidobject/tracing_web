@@ -30,4 +30,18 @@ public class Constans {
     }
 
 
+    /**
+     * 获取存储路径
+     *
+     * @return
+     */
+    public static String getPath() {
+        String path;
+        if (ISPRODUCTION) {
+            path = "/root/file_upload";
+        } else {
+            path = "D:\\file_upload";
+        }
+        return path;
+    }
 }

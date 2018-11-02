@@ -2,10 +2,12 @@ package com.zzg.tracing.dao.impl;
 
 import com.zzg.tracing.dao.FileDao;
 import com.zzg.tracing.entity.FileEntity;
+import com.zzg.tracing.utils.TimeUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.List;
 
 public class FileDaoImpl implements FileDao {
@@ -20,7 +22,7 @@ public class FileDaoImpl implements FileDao {
      */
     @Override
     public boolean saveFile(Connection connection, List<FileEntity> mList) {
-        String sql = "insert  into file (file_type,user_id,file_url,create_time)values (?,?,?,?)";
+        String sql = "insert  into file (file_type,user_id,file_url,lost_people_id,create_time)values (?,?,?,?,?)";
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -28,7 +30,8 @@ public class FileDaoImpl implements FileDao {
                 ps.setObject(1, mList.get(i).getFile_type());
                 ps.setObject(2, mList.get(i).getUser_id());
                 ps.setObject(3, mList.get(i).getFile_url());
-                ps.setObject(4, mList.get(i).getCreate_time());
+                ps.setObject(4, mList.get(i).getLost_people_id());
+                ps.setObject(5, TimeUtils.getCurrentTime());
             }
             int i = ps.executeUpdate();
 
