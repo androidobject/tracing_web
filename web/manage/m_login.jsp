@@ -15,7 +15,7 @@
     <link href="/css/style.css" type="text/css" rel="stylesheet">
     <link href="/css/login.css" type="text/css" rel="stylesheet">
 
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.9.1.min.js"></script>
     <script type="text/javascript">
 
         function check() {

@@ -11,7 +11,7 @@
 <head>
     <title>寻亲记官网</title>
     <link rel="icon" href="img/favicon.png" mce_href="img/favicon.png" type="image/x-icon">
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.9.1.min.js"></script>
 
     <script>
 
