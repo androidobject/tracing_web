@@ -101,6 +101,7 @@
 </head>
 <body onload="getCompostion()" bgcolor="#a9a9a9">
 <H1 align="center">寻亲记官网</H1>
+<a href="manage/m_login.jsp">管理员登录</a>
 <div id="composition"></div>
 
 
@@ -108,7 +109,7 @@
 
 <footer class="myfooter">
     <div class="copyright" position:relative>
-        <p ><img src="/img/favicon.png"/>Copyright 2018&copy; 北京寻亲记个人开发小组</p>
+        <p><img src="/img/favicon.png"/>Copyright 2018&copy; 北京寻亲记个人开发小组</p>
     </div>
 </footer>
 
