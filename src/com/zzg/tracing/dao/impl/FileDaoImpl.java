@@ -29,7 +29,7 @@ public class FileDaoImpl implements FileDao {
             for (int i = 0; i < mList.size(); i++) {
                 ps.setObject(1, mList.get(i).getFile_type());
                 ps.setObject(2, mList.get(i).getUser_id());
-                ps.setObject(3, mList.get(i).getFile_url());
+                ps.setObject(3, mList.get(i).getFile_abs_url());
                 ps.setObject(4, mList.get(i).getLost_people_id());
                 ps.setObject(5, TimeUtils.getCurrentTime());
             }

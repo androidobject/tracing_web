@@ -38,7 +38,7 @@ public class CollectDaoImpl implements CollectDao {
                 ps.setInt(4, entity.getCollect_user_id());
                 int i = ps.executeUpdate();
 
-                String selectNum = "update  lost_info  set collect_time=collect_time+1  where id=" + entity.getLost_info_id();
+                String selectNum = "update  lost_info  set collect_times=collect_times+1  where id=" + entity.getLost_info_id();
                 PreparedStatement psCollectNum = connection.prepareStatement(selectNum);
                 int i1 = psCollectNum.executeUpdate();
 
@@ -125,7 +125,7 @@ public class CollectDaoImpl implements CollectDao {
                 ps.setInt(2, collect_user_id);
                 int i = ps.executeUpdate();
 
-                String selectNum = "update  lost_info  set collect_time=collect_time-1  where id=" + lost_info_id;
+                String selectNum = "update  lost_info  set collect_times=collect_times-1  where id=" + lost_info_id;
                 PreparedStatement psCollectNum = connection.prepareStatement(selectNum);
                 int i1 = psCollectNum.executeUpdate();
 

@@ -19,6 +19,16 @@ public class FileEntity implements Serializable {
     private String file_url;
     //创建时间
     private String create_time;
+    //绝对路径
+    private String file_abs_url;
+
+    public String getFile_abs_url() {
+        return this.file_abs_url;
+    }
+
+    public void setFile_abs_url(String file_abs_url) {
+        this.file_abs_url = file_abs_url;
+    }
 
     public String getFile_type() {
         return file_type;

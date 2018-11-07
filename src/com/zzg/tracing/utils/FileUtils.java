@@ -68,6 +68,7 @@ public class FileUtils {
                     item.write(storeFile);
                     entity.setFile_type(type);
                     entity.setFile_url(Constans.realPath("file/" + fileName));
+                    entity.setFile_abs_url("file/" + fileName);
                     entity.setLost_people_id(Integer.parseInt(lost_people_id));
                     entity.setUser_id(Integer.parseInt(user_id));
                     mlist.add(entity);

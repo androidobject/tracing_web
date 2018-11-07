@@ -7,7 +7,7 @@ public class Constans {
      * <p>
      * 发布需要改成生产环境
      */
-    public static final boolean ISPRODUCTION = false;
+    public static final boolean ISPRODUCTION = true;
 
     /**
      * 生产
