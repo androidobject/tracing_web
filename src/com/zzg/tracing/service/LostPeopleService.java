@@ -33,5 +33,14 @@ public class LostPeopleService {
         return ml;
     }
 
+    /**
+     * 查询所有的丢失儿童
+     */
+    public List<LostPeopleEntity> selectAllLosts() {
+        Connection connection = ConnectionFactory.getInstance().makeConnection();
+        List<LostPeopleEntity> ml = dao.selectAllLosts(connection);
+        return ml;
+    }
+
 
 }

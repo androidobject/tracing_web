@@ -11,184 +11,104 @@ import java.util.Date;
 
 public class LostInfoEntity implements Serializable {
 
-    public LostInfoEntity() {
-
-        DateFormat bf = new SimpleDateFormat("yyyy-MM-dd E a HH:mm:ss");
-        Date date = new Date();
-        create_time = bf.format(date);
-
-    }
     //主键 id
     private int id;
-
-    //丢失人姓名
-    private String lost_name;
-    //年龄
-    private String lost_age;
-    //性别
-    private String lost_sex;
-    //丢失时身高
-    private String lost_high;
-    //最后见面时间
-    private String last_see_time;
-    //丢失时地区
-    private String lost_area;
-    //发布时间
-    private String create_time;
-    //联系人姓名
-    private String contact_name;
-    //联系人电话
-    private String contact_phone;
-    //联系人微信
-    private String contact_wx;
-    //联系人地址
-    private String contact_address;
     //发布平台
     private String send_by_phone;
+    //发布时间
+    private String create_time;
     //查看次数
-    private int look_time;
+    private int look_times;
     //发布人id
-    private String send_id;
+    private int send_id;
     //收藏次数
-    private int collect_time;
+    private int collect_times;
+    //丢失地区
+    private String lost_area;
     //评论数
-    private int commit_time;
-
-    public int getCollect_time() {
-        return collect_time;
-    }
-
-    public void setCollect_time(int collect_time) {
-        this.collect_time = collect_time;
-    }
-
-    public int getCommit_time() {
-        return commit_time;
-    }
-
-    public void setCommit_time(int commit_time) {
-        this.commit_time = commit_time;
-    }
-
-    public String getSend_id() {
-        return send_id;
-    }
-
-    public void setSend_id(String send_id) {
-        this.send_id = send_id;
-    }
-
-    public String getLost_name() {
-        return lost_name;
-    }
-
-    public void setLost_name(String lost_name) {
-        this.lost_name = lost_name;
-    }
-
-    public String getLost_age() {
-        return lost_age;
-    }
-
-    public void setLost_age(String lost_age) {
-        this.lost_age = lost_age;
-    }
-
-    public String getLost_sex() {
-        return lost_sex;
-    }
-
-    public void setLost_sex(String lost_sex) {
-        this.lost_sex = lost_sex;
-    }
-
-    public String getLost_high() {
-        return lost_high;
-    }
-
-    public void setLost_high(String lost_high) {
-        this.lost_high = lost_high;
-    }
-
-    public String getLast_see_time() {
-        return last_see_time;
-    }
-
-    public void setLast_see_time(String last_see_time) {
-        this.last_see_time = last_see_time;
-    }
-
-    public String getLost_area() {
-        return lost_area;
-    }
-
-    public void setLost_area(String lost_area) {
-        this.lost_area = lost_area;
-    }
+    private int commit_times;
+    //丢失人信息
+    private LostPeopleEntity lostPeople;
+    //发布用户信息
+    private UserEntity userEntity;
 
     public String getCreate_time() {
-        return create_time;
+        return this.create_time;
     }
 
     public void setCreate_time(String create_time) {
         this.create_time = create_time;
     }
 
-    public String getContact_name() {
-        return contact_name;
+    public String getLost_area() {
+        return this.lost_area;
     }
 
-    public void setContact_name(String contact_name) {
-        this.contact_name = contact_name;
+    public void setLost_area(String lost_area) {
+        this.lost_area = lost_area;
     }
 
-    public String getContact_phone() {
-        return contact_phone;
+    public int getId() {
+        return this.id;
     }
 
-    public void setContact_phone(String contact_phone) {
-        this.contact_phone = contact_phone;
-    }
-
-    public String getContact_wx() {
-        return contact_wx;
-    }
-
-    public void setContact_wx(String contact_wx) {
-        this.contact_wx = contact_wx;
-    }
-
-    public String getContact_address() {
-        return contact_address;
-    }
-
-    public void setContact_address(String contact_address) {
-        this.contact_address = contact_address;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getSend_by_phone() {
-        return send_by_phone;
+        return this.send_by_phone;
     }
 
     public void setSend_by_phone(String send_by_phone) {
         this.send_by_phone = send_by_phone;
     }
 
-    public int getLook_time() {
-        return look_time;
+    public int getLook_times() {
+        return this.look_times;
     }
 
-    public void setLook_time(int look_time) {
-
-
-        this.look_time = look_time;
+    public void setLook_times(int look_times) {
+        this.look_times = look_times;
     }
 
-    public int getId() {
-        return id;
+    public int getSend_id() {
+        return this.send_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSend_id(int send_id) {
+        this.send_id = send_id;
+    }
+
+    public int getCollect_times() {
+        return this.collect_times;
+    }
+
+    public void setCollect_times(int collect_times) {
+        this.collect_times = collect_times;
+    }
+
+    public int getCommit_times() {
+        return this.commit_times;
+    }
+
+    public void setCommit_times(int commit_times) {
+        this.commit_times = commit_times;
+    }
+
+    public LostPeopleEntity getLostPeople() {
+        return this.lostPeople;
+    }
+
+    public void setLostPeople(LostPeopleEntity lostPeople) {
+        this.lostPeople = lostPeople;
+    }
+
+    public UserEntity getUserEntity() {
+        return this.userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 }

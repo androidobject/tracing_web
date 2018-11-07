@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.zzg.tracing.dao.LostPeopleDao;
 import com.zzg.tracing.entity.LostPeopleEntity;
+import com.zzg.tracing.utils.SqlTableUtils;
 import com.zzg.tracing.utils.TimeUtils;
 
 import java.sql.Connection;
@@ -61,34 +62,8 @@ public class LostPeopleDaoImpl implements LostPeopleDao {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, user_id);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 LostPeopleEntity entity = new LostPeopleEntity();
-                entity.setId(rs.getInt("id"));
-                entity.setName(rs.getString("name"));
-                entity.setLost_time(rs.getString("lost_time"));
-                entity.setLost_des(rs.getString("lost_des"));
-                entity.setLost_area(rs.getString("lost_area"));
-                entity.setLost_high(rs.getString("lost_high"));
-                entity.setLost_weight(rs.getString("lost_weight"));
-                entity.setCreate_time(rs.getString("create_time"));
-                entity.setNickname(rs.getString("nickname"));
-                entity.setLost_age(rs.getString("lost_age"));
-                entity.setPhoto(rs.getString("photo"));
-                //查询图片集
-                String ids = rs.getString("pic_file");
-
-                String sqlUrl = "select file_url from file where lost_people_id in (" + ids + ")";
-
-                PreparedStatement psFile = connection.prepareStatement(sqlUrl);
-
-                ResultSet rsF = psFile.executeQuery();
-                List<String> fileList = new ArrayList<>();
-                if (rsF.next()) {
-                    fileList.add(rsF.getString("file_url"));
-                }
-                String allURL = JSON.toJSONString(fileList);
-                entity.setPic_file(allURL);
-
                 mlist.add(entity);
             }
 
@@ -98,4 +73,31 @@ public class LostPeopleDaoImpl implements LostPeopleDao {
 
         return mlist;
     }
+
+    /**
+     * 查询所有的丢失人信息
+     *
+     * @param connection
+     * @return
+     */
+    @Override
+    public List<LostPeopleEntity> selectAllLosts(Connection connection) {
+        String sql = "select * from lost_people";
+
+        List<LostPeopleEntity> mlist = new ArrayList<>();
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                LostPeopleEntity entity = new LostPeopleEntity();
+                SqlTableUtils.setLostPeopleInfo(connection, entity, rs);
+                mlist.add(entity);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return mlist;
+    }
+
 }

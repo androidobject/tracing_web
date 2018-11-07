@@ -17,14 +17,13 @@ public class IssuedService {
     /**
      * 保存丢失人信息
      *
-     * @param entity
      * @return
      */
-    public boolean saveLostInfo(LostInfoEntity entity) {
+    public boolean saveLostInfo(String user_id,String lost_people_id,String send_by_phone,String lost_area,String issued_des) {
 
         Connection connection = ConnectionFactory.getInstance().makeConnection();
 
-        boolean b = dao.saveLostInfo(connection, entity);
+        boolean b = dao.saveLostInfo(connection, user_id,lost_people_id,send_by_phone,lost_area,issued_des);
 
         if (b) {
             return true;

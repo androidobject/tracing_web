@@ -2,6 +2,7 @@ package com.zzg.tracing.dao.impl;
 
 import com.zzg.tracing.dao.UserDao;
 import com.zzg.tracing.entity.UserEntity;
+import com.zzg.tracing.utils.SqlTableUtils;
 import com.zzg.tracing.utils.TimeUtils;
 
 import java.sql.Connection;
@@ -168,16 +169,7 @@ public class UserDaoImpl implements UserDao {
 
             while (rs.next()) {
                 UserEntity model = new UserEntity();
-                model.setId(rs.getInt("id"));
-                model.setPhone(rs.getString("phone"));
-                model.setUser_name(rs.getString("user_name"));
-                model.setPassword(rs.getString("password"));
-                model.setPhoto(rs.getString("photo"));
-                model.setAddress(rs.getString("address"));
-                model.setWeixin(rs.getString("weixin"));
-                model.setCreate_time(rs.getString("create_time"));
-                model.setRigister_by_phone(rs.getString("rigister_by_phone"));
-                model.setLast_login_time(rs.getString("last_login_time"));
+                SqlTableUtils.setUserEntity(model, rs, 0);
                 mList.add(model);
             }
         } catch (SQLException e) {

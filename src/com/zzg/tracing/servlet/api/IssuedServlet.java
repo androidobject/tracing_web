@@ -31,30 +31,25 @@ public class IssuedServlet extends HttpServlet {
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String data = request.getParameter("data");
-        LostInfoEntity lostInfoEntity = null;
 
-        try {
-            lostInfoEntity = JSON.parseObject(data, LostInfoEntity.class);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        String user_id = request.getParameter("user_id");
+        String lost_people_id = request.getParameter("lost_people_id");
+        String send_by_phone = request.getParameter("send_by_phone");
+        String lost_area = request.getParameter("lost_area");
+        String issued_des = request.getParameter("issued_des");
 
         String result = "";
-        if (TextUtils.isEmpty(data) || lostInfoEntity == null || TextUtils.isEmpty(lostInfoEntity.getSend_id())) {
+        if (TextUtils.isEmpty(user_id) || TextUtils.isEmpty(lost_people_id) || TextUtils.isEmpty(send_by_phone)) {
             result = ResPonseUtils.responseJsonE("参数有误");
         } else {
-
             IssuedService service = new IssuedService();
-            boolean b = service.saveLostInfo(lostInfoEntity);
+            boolean b = service.saveLostInfo(user_id,lost_people_id,send_by_phone,lost_area,issued_des);
             if (b) {
-                result= ResPonseUtils.responseJsonS("sucess");
+                result = ResPonseUtils.responseJsonS("sucess");
             } else {
                 result = ResPonseUtils.responseJsonE("服务器异常");
             }
-
         }
-
         PrintWriter writer = response.getWriter();
         writer.println(result);
         writer.close();

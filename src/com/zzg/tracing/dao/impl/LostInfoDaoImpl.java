@@ -2,8 +2,12 @@ package com.zzg.tracing.dao.impl;
 
 import com.zzg.tracing.dao.LostInfoDao;
 import com.zzg.tracing.entity.LostInfoEntity;
+import com.zzg.tracing.entity.LostPeopleEntity;
 import com.zzg.tracing.entity.PageEntity;
+import com.zzg.tracing.entity.UserEntity;
 import com.zzg.tracing.utils.SqlTableUtils;
+import com.zzg.tracing.utils.TextUtils;
+import com.zzg.tracing.utils.TimeUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,41 +17,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LostInfoDaoImpl implements LostInfoDao {
+
+
     @Override
-    public boolean saveLostInfo(Connection connection, LostInfoEntity entity) {
-        String sql = "INSERT  INTO lost_info (lost_name,lost_age,lost_sex,lost_high,last_see_time,lost_area,create_time," +
-                "contact_name,contact_phone,contact_wx,contact_address,send_by_phone,look_time,send_id,collect_time,commit_time)values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    public boolean saveLostInfo(Connection connection, String user_id, String lost_people_id, String send_by_phone, String lost_area, String issued_des) {
+        String sql = "insert  into lost_info (send_id,lost_people_id,issued_des,send_by_phone,lost_area,create_time)values (?,?,?,?,?,?)";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, entity.getLost_name());
-            ps.setString(2, entity.getLost_age());
-            ps.setString(3, entity.getLost_sex());
-            ps.setString(4, entity.getLost_high());
-            ps.setString(5, entity.getLast_see_time());
-            ps.setString(6, entity.getLost_area());
-            ps.setString(7, entity.getCreate_time());
-            ps.setString(8, entity.getContact_name());
-            ps.setString(9, entity.getContact_phone());
-            ps.setString(10, entity.getContact_wx());
-            ps.setString(11, entity.getContact_address());
-            ps.setString(12, entity.getSend_by_phone());
-            ps.setInt(13, entity.getLook_time());
-            ps.setString(14, entity.getSend_id());
-            ps.setInt(15, entity.getCollect_time());
-            ps.setInt(16, entity.getCommit_time());
+            ps.setInt(1, Integer.parseInt(user_id));
+            ps.setInt(2, Integer.parseInt(lost_people_id));
+            ps.setString(3, issued_des);
+            ps.setString(4, send_by_phone);
+            if (TextUtils.isEmpty(lost_area)) {
+                lost_area = "全国";
+            }
+            ps.setString(5, lost_area);
+            ps.setString(6, TimeUtils.getCurrentTime());
             int i = ps.executeUpdate();
             if (i == 1) {
                 return true;
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-
         return false;
     }
-
 
     /**
      * 筛选丢失人列表
@@ -66,7 +61,6 @@ public class LostInfoDaoImpl implements LostInfoDao {
 
         PageEntity pageEnty = new PageEntity();
 
-
         int type = -1;
         String sql = "";
 
@@ -81,15 +75,9 @@ public class LostInfoDaoImpl implements LostInfoDao {
         int totalPage = (totolNum + PageNum - 1) / PageNum;
         //设置总页数
         pageEnty.setTotalPage(totalPage);
-
-        int currentpage = 1;
-        try {
-            currentpage = Integer.parseInt(page);
-            if (currentpage <= 0) {
-                currentpage = 1;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        int currentpage = Integer.parseInt(page);
+        if (currentpage <= 0) {
+            currentpage = 1;
         }
 
         if (currentpage <= totalPage) {
@@ -107,9 +95,41 @@ public class LostInfoDaoImpl implements LostInfoDao {
                 ps.setString(1, area);
             }
             ResultSet rs = ps.executeQuery();
-            //转换为list
-            List<LostInfoEntity> mList = SqlTableUtils.getTableList(rs);
+            ArrayList<LostInfoEntity> mList = new ArrayList<>();
+            while (rs.next()) {
+                LostInfoEntity lostInfoEntity = new LostInfoEntity();
+                lostInfoEntity.setId(rs.getInt("id"));
+                lostInfoEntity.setLost_area(rs.getString("lost_area"));
+                lostInfoEntity.setCreate_time(rs.getString("create_time"));
+                lostInfoEntity.setSend_by_phone(rs.getString("send_by_phone"));
+                lostInfoEntity.setLook_times(rs.getInt("look_times"));
+                lostInfoEntity.setSend_id(rs.getInt("send_id"));
+                lostInfoEntity.setCollect_times(rs.getInt("collect_times"));
+                lostInfoEntity.setCommit_times(rs.getInt("commit_times"));
+                //查询发布人信息
 
+                UserEntity userEntity = new UserEntity();
+                String sqlUser = "select * from user where id=?";
+                PreparedStatement psuser = connection.prepareStatement(sqlUser);
+                psuser.setInt(1, rs.getInt("send_id"));
+                ResultSet rsUser = psuser.executeQuery();
+                if (rsUser.next()) {
+                    SqlTableUtils.setUserEntity(userEntity, rsUser, 1);
+                    lostInfoEntity.setUserEntity(userEntity);
+                }
+
+                //查询丢失儿童信息
+                LostPeopleEntity lostPeopleEntity = new LostPeopleEntity();
+                String sqlLost = "select * from lost_people where id=?";
+                PreparedStatement psLosts = connection.prepareStatement(sqlLost);
+                psLosts.setInt(1, rs.getInt("lost_people_id"));
+                ResultSet rsLosts = psLosts.executeQuery();
+                if (rsLosts.next()) {
+                    SqlTableUtils.setLostPeopleInfo(connection, lostPeopleEntity, rsLosts);
+                    lostInfoEntity.setLostPeople(lostPeopleEntity);
+                }
+                mList.add(lostInfoEntity);
+            }
             pageEnty.setMlist(mList);
             return pageEnty;
 
@@ -138,7 +158,7 @@ public class LostInfoDaoImpl implements LostInfoDao {
 
             ResultSet resultSet = ps.executeQuery();
 
-            tableList = SqlTableUtils.getTableList(resultSet);
+//            tableList = SqlTableUtils.getTableList(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -175,7 +195,6 @@ public class LostInfoDaoImpl implements LostInfoDao {
                 ps.setString(1, area);
             }
             ResultSet resultSet = ps.executeQuery();
-
 
             while (resultSet.next()) {
                 rowCount = resultSet.getInt("rec");

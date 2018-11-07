@@ -7,10 +7,32 @@ import java.util.List;
 
 public interface LostPeopleDao {
 
-    public String addLostPeople(Connection connection, LostPeopleEntity entity);
+    /**
+     * 添加丢失人信息
+     *
+     * @param connection
+     * @param entity
+     * @return
+     */
+    String addLostPeople(Connection connection, LostPeopleEntity entity);
 
 
-    public List<LostPeopleEntity> selectLostsByid(Connection connection, int user_id);
+    /**
+     * 查询个人丢失人列表
+     *
+     * @param connection
+     * @param user_id
+     * @return
+     */
+    List<LostPeopleEntity> selectLostsByid(Connection connection, int user_id);
 
+
+    /**
+     * 查询个人丢失人列表
+     *
+     * @param connection
+     * @return
+     */
+    List<LostPeopleEntity> selectAllLosts(Connection connection);
 
 }

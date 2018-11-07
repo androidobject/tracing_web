@@ -169,8 +169,8 @@ public class CollectDaoImpl implements CollectDao {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, user_id);
             ResultSet rs = ps.executeQuery();
-            List<LostInfoEntity> tableList = SqlTableUtils.getTableList(rs);
-            return tableList;
+//            List<LostInfoEntity> tableList = SqlTableUtils.getTableList(rs);
+//            return tableList;
         } catch (SQLException e) {
             e.printStackTrace();
         }
