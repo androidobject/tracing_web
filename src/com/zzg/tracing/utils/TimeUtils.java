@@ -1,5 +1,6 @@
 package com.zzg.tracing.utils;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,5 +20,17 @@ public class TimeUtils {
 
         return currentTime;
     }
+
+
+    /**
+     * 获取当前系统时间
+     */
+
+    public static Timestamp getCurrent() {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        return timestamp;
+
+    }
+
 
 }

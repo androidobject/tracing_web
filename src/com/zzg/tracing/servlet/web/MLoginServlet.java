@@ -1,14 +1,13 @@
-package com.zzg.tracing_manage.servlet;
+package com.zzg.tracing.servlet.web;
 
-import com.mysql.cj.Session;
-import com.zzg.tracing_manage.service.LoginMService;
+
+import com.zzg.tracing.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -24,7 +23,7 @@ public class MLoginServlet extends HttpServlet {
         String uname = request.getParameter("uname");
         String pword = request.getParameter("pword");
 
-        LoginMService service = new LoginMService();
+        UserService service = new UserService();
         String result = service.loginM(uname, pword);
 
         System.out.println("result===" + result);

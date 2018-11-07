@@ -1,9 +1,7 @@
-package com.zzg.tracing.servlet;
+package com.zzg.tracing.servlet.api;
 
-import com.zzg.tracing.entity.UserEntity;
-import com.zzg.tracing.service.LoginService;
+import com.zzg.tracing.service.RigisterService;
 import com.zzg.tracing.utils.ResPonseUtils;
-import com.zzg.tracing.utils.TextUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,10 +12,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * 登录接口
+ * 注册接口
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
-public class LoginServlet extends HttpServlet {
+
+@WebServlet(name = "RigisterServlet", urlPatterns = {"/rigister"})
+public class RigisterServlet extends HttpServlet {
+
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
@@ -27,19 +27,21 @@ public class LoginServlet extends HttpServlet {
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String rigister_by_phone = request.getParameter("rigister_by_phone");
+
         String result = "";
-        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
+        if ("".equals(username) || "".equals(password) || username == null
+                || password == null || rigister_by_phone == null || rigister_by_phone == null) {
             result = ResPonseUtils.responseJsonE("参数有误");
         } else {
-            LoginService service = new LoginService();
-            String loginMsg = service.login(username, password);
-            if (loginMsg.equals("ok")) {
-                UserEntity entity = service.searchUser(username);
-                result = ResPonseUtils.responseJsonS(entity);
-
+            RigisterService service = new RigisterService();
+            String msg = service.rigister(username, password,rigister_by_phone);
+            if (msg.equals("ok")) {
+                result = ResPonseUtils.responseJsonS("");
             } else {
-                result = ResPonseUtils.responseJsonE(loginMsg);
+                result = ResPonseUtils.responseJsonE(msg);
             }
+
         }
 
         PrintWriter writer = response.getWriter();

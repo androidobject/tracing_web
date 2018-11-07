@@ -2,11 +2,14 @@ package com.zzg.tracing.dao.impl;
 
 import com.zzg.tracing.dao.UserDao;
 import com.zzg.tracing.entity.UserEntity;
+import com.zzg.tracing.utils.TimeUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDaoImpl implements UserDao {
 
@@ -20,7 +23,7 @@ public class UserDaoImpl implements UserDao {
             ps.setString(1, userEntity.getPhone());
             ps.setString(2, userEntity.getUser_name());
             ps.setString(3, userEntity.getPassword());
-            ps.setString(4, userEntity.getCreate_time());
+            ps.setString(4, TimeUtils.getCurrentTime());
             ps.setString(5, userEntity.getRigister_by_phone());
             num = ps.executeUpdate();
 
@@ -77,6 +80,13 @@ public class UserDaoImpl implements UserDao {
         return false;
     }
 
+    /**
+     * 检查uid是否存在
+     *
+     * @param connection
+     * @param id
+     * @return
+     */
     @Override
     public boolean checkUID(Connection connection, String id) {
 
@@ -110,7 +120,7 @@ public class UserDaoImpl implements UserDao {
         UserEntity entity = new UserEntity();
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, entity.getCreate_time());
+            ps.setString(1, TimeUtils.getCurrentTime());
             ps.setString(2, phone);
             ps.executeUpdate();
 
@@ -140,5 +150,115 @@ public class UserDaoImpl implements UserDao {
         return entity;
     }
 
+    /**
+     * 列举用户列表
+     *
+     * @param connection
+     * @return
+     */
+    @Override
+    public List<UserEntity> userList(Connection connection) {
+        List<UserEntity> mList = new ArrayList<>();
+
+        String sql = "select * from user order by id desc ";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                UserEntity model = new UserEntity();
+                model.setId(rs.getInt("id"));
+                model.setPhone(rs.getString("phone"));
+                model.setUser_name(rs.getString("user_name"));
+                model.setPassword(rs.getString("password"));
+                model.setPhoto(rs.getString("photo"));
+                model.setAddress(rs.getString("address"));
+                model.setWeixin(rs.getString("weixin"));
+                model.setCreate_time(rs.getString("create_time"));
+                model.setRigister_by_phone(rs.getString("rigister_by_phone"));
+                model.setLast_login_time(rs.getString("last_login_time"));
+                mList.add(model);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return mList;
+    }
+
+    /**
+     * 检查管理员是否存在
+     *
+     * @param connection
+     * @param mUser
+     * @return
+     */
+    @Override
+    public boolean checkAdmin(Connection connection, String mUser) {
+
+        String sql = "select * from admin_user where uid=?";
+        boolean isHave = false;
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            int uid = Integer.parseInt(mUser);
+            ps.setInt(1, uid);
+
+            ResultSet resultSet = ps.executeQuery();
+
+            if (resultSet.next()) {
+                isHave = true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return isHave;
+    }
+
+
+    /**
+     * 管理后台登录
+     *
+     * @param connection
+     * @param username
+     * @param password
+     * @return
+     */
+    @Override
+    public String loginM(Connection connection, String username, String password) {
+        String result = "";
+        String sql = "SELECT * from admin_user where username=? and password=?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setString(1, username);
+            ps.setString(2, password);
+
+            ResultSet resultSet = ps.executeQuery();
+
+            if (resultSet.next()) {
+                result = "登录成功";
+                //更新登录时间
+                String sql_time = "update admin_user set last_login=? where username=?";
+                PreparedStatement pst = connection.prepareStatement(sql_time);
+                pst.setString(1, TimeUtils.getCurrentTime());
+                pst.setString(2, username);
+                pst.executeUpdate();
+            } else {
+                result = "用户名或密码错误！";
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            result = "服务器异常，请稍后再试！";
+
+        }
+
+        return result;
+    }
 
 }

@@ -1,8 +1,10 @@
-package com.zzg.tracing.servlet;
+package com.zzg.tracing.servlet.api;
 
+import com.alibaba.fastjson.JSON;
 import com.zzg.tracing.entity.EssayEntity;
+import com.zzg.tracing.entity.LostInfoEntity;
 import com.zzg.tracing.service.EssayService;
-
+import com.zzg.tracing.service.IssuedService;
 import com.zzg.tracing.utils.ResPonseUtils;
 import com.zzg.tracing.utils.TextUtils;
 
@@ -16,37 +18,45 @@ import java.io.PrintWriter;
 import java.util.List;
 
 /**
- * 获取文章列表
+ * 发布失踪信息
  */
-@WebServlet(name = "EssayServlet", urlPatterns = {"/essay"})
-public class EssayServlet extends HttpServlet {
+
+@WebServlet(name = "IssuedServlet", urlPatterns = {"/issued"})
+public class IssuedServlet extends HttpServlet {
+
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
     }
 
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String user_id = request.getParameter("user_id");
+        String data = request.getParameter("data");
+        LostInfoEntity lostInfoEntity = null;
+
+        try {
+            lostInfoEntity = JSON.parseObject(data, LostInfoEntity.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         String result = "";
-        if (TextUtils.isEmpty(user_id)) {
+        if (TextUtils.isEmpty(data) || lostInfoEntity == null || TextUtils.isEmpty(lostInfoEntity.getSend_id())) {
             result = ResPonseUtils.responseJsonE("参数有误");
         } else {
-            EssayService service = new EssayService();
-            List<EssayEntity> essayList = service.getEssayList(20);
-            if (essayList != null) {
-                result = ResPonseUtils.responseJsonS(essayList);
+
+            IssuedService service = new IssuedService();
+            boolean b = service.saveLostInfo(lostInfoEntity);
+            if (b) {
+                result= ResPonseUtils.responseJsonS("sucess");
             } else {
-                result = ResPonseUtils.responseJsonS("暂无相关文章推荐！");
+                result = ResPonseUtils.responseJsonE("服务器异常");
             }
+
         }
 
         PrintWriter writer = response.getWriter();
         writer.println(result);
         writer.close();
-
-
     }
-
-
 }

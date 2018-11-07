@@ -1,4 +1,4 @@
-package com.zzg.tracing.servlet;
+package com.zzg.tracing.servlet.api;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

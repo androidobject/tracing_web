@@ -1,4 +1,4 @@
-package com.zzg.tracing.servlet;
+package com.zzg.tracing.servlet.api;
 
 import com.zzg.tracing.entity.CollectEntity;
 import com.zzg.tracing.service.CollectService;

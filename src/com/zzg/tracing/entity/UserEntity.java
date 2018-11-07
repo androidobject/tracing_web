@@ -11,11 +11,6 @@ import java.util.Date;
 
 public class UserEntity implements Serializable {
 
-    public UserEntity(){
-        DateFormat bf = new SimpleDateFormat("yyyy-MM-dd E a HH:mm:ss");
-        Date date = new Date();
-        create_time = bf.format(date);
-    }
 
     private int id;
     private String phone;

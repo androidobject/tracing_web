@@ -5,7 +5,7 @@
          version="4.0">
     <!--<servlet>-->
     <!--<servlet-name>uploadServlet</servlet-name>-->
-    <!--<servlet-class>com.zzg.tracing.servlet.UploadFileServlet</servlet-class>-->
+    <!--<servlet-class>com.zzg.tracing.servlet.api.UploadFileServlet</servlet-class>-->
     <!--</servlet>-->
 
     <!--<servlet-mapping>-->
